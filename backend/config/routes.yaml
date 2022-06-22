@@ -1,0 +1,3 @@
+#controllers:
+#    resource: ../src/UI/AdminAPI/Controller/
+#    type: attribute

@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ttt
+      POSTGRES_USER: ttt
+      POSTGRES_DB: ttt
+
+  db_test:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ttt
+      POSTGRES_USER: ttt
+      POSTGRES_DB: ttt_test
+
+  php:
+    build: docker/php
+    ports:
+      - 8073:8070
+    depends_on:
+      - db
+      - db_test
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app 
+
+  dbgui:
+    image: dpage/pgadmin4
+    ports:
+      - 8074:8074
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ttt@ttt.com
+      PGADMIN_DEFAULT_PASSWORD: ttt
+      PGADMIN_LISTEN_PORT: 8074

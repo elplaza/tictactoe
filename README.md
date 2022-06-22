@@ -68,5 +68,8 @@ docker compose run php cbf
 #### Tests
 Run automatic tests:
 ```bash
+docker compose up -d db_test
+```
+```bash
 docker compose run php test
 ```

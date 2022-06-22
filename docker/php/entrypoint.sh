@@ -35,9 +35,11 @@ fill_db() {
 	symfony console --no-interaction doctrine:fixtures:load
 }
 
-update_db_test() {
-	echo "[DB TEST] run migrations . . . "
-	symfony console --no-interaction --env=test doctrine:migrations:migrate
+recreate_db_test() {
+	echo "[DB TEST] CREATE SCHEMA . . . "
+	symfony console doctrine:database:drop --if-exists --force --env=test
+	symfony console doctrine:database:create --env=test
+	symfony console doctrine:schema:update --force --env=test
 }
 
 fill_db_test() {
@@ -59,7 +61,7 @@ case "$1" in
 		;;
 
 	test)
-		update_db_test
+		recreate_db_test
 
 		fill_db_test
 
